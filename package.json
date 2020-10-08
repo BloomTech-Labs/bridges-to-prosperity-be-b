@@ -13,7 +13,9 @@
     "knex": "npx knex --knexfile knexfile.js",
     "tests": "npx jest --forceExit",
     "coverage": "CI=true npx jest --coverage --detectOpenHandles --forceExit",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "pre-branch": "git checkout main && git pull && npm i",
+    "pull-main": "git pull origin main && npm i"
   },
   "nodemonConfig": {
     "exec": "npm run start",
