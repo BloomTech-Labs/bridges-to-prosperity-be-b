@@ -31,6 +31,14 @@ const findbyStage = async (stage) => {
   return await db('bridges').where({ 'bridges.project_stage': stage });
 };
 
+const updateBridgeByProjectCode = (code, changes) => {
+  return db('bridges').where({ project_code: code }).update(changes);
+};
+
+const findBridgeByProjectCode = (code) => {
+  return db('bridges').where({ project_code: code });
+};
+
 module.exports = {
   findAll,
   getBridgeById,
@@ -39,4 +47,6 @@ module.exports = {
   getAllProjectCodes,
   updateBridge,
   deleteBridge,
+  updateBridgeByProjectCode,
+  findBridgeByProjectCode,
 };

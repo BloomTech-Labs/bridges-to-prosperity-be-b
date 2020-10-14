@@ -46,6 +46,33 @@ router.put('/update/:id', validateBridgeId, async (req, res) => {
       res.status(500).json(error);
     });
 });
+router.put('/update-images/', async (req, res) => {
+  const data = req.body;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i]['Completed Bridge Photo URL'] === '') {
+      bridgeModel
+        .updateBridgeByProjectCode(data[i]['Project Code'], {
+          bridge_image: data[i]['Pre-Bridge Crossing Photo URL'],
+        })
+        .then()
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      bridgeModel
+        .updateBridgeByProjectCode(data[i]['Project Code'], {
+          bridge_image: data[i]['Completed Bridge Photo URL'],
+        })
+        .then()
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }
+  res.json({
+    message: 'done',
+  });
+});
 
 router.delete('/delete/:id', validateBridgeId, async (req, res) => {
   const id = req.params.id;
