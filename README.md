@@ -21,7 +21,7 @@ You can find a demo vidoe of codebase at https://www.youtube.com/watch?v=PARd7ap
 
 Trello Board: https://trello.com/b/x1iIzJdj/labs25bridgesjessica
 
-Back end: https://bridges-b-api.herokuapp.com/built 
+Back end: https://bridges-b-api.herokuapp.com/built
 
 Tech Stack: Node.js, Express, Knex, PostgreSql, Docker
 
@@ -45,197 +45,62 @@ OKTA_URL_ISSUER=
 - run: `npm run tests` to confirm all is setup and tests pass.
 - run: `npm run watch:dev` to start nodemon in local dev enviornment.
 
-
 <br/>
 
 ## API Documentation
 
 <br/>
 
-### Bridges Endpoints
+### Bridge Endpoints
 
-<br/>
-GET REQUEST TO:
+| Endpoint               | Method | Description                                                                                                                                      | Required Data                                                                                                                                      |
+| ---------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| /bridges               | GET    | Returns all bridge data.                                                                                                                         |                                                                                                                                                    |
+| /bridges/{id}          | GET    | Returns data for a single bridge.                                                                                                                | `URL` Replace {id} with the Bridge ID.                                                                                                             |
+| /bridges/{id}          | PUT    | Updates the data of a single bridge.                                                                                                             | `URL` Replace {id} with the Bridge ID.</br>`JSON` None required. Provide what you want to change.                                                  |
+| /bridges/update-images | PUT    | An easy way to update all the bridge images from the file the stakeholder supplied. Convert the .xls file to .csv and then to JSON before using. | `JSON` Array of objects. Each object must contain these strings: `Project Code`, `Pre-Bridge Crossing Photo URL` and `Completed Bridge Photo URL`. |
 
-https://bridges-b-api.herokuapp.com/data/bridges
+### Data Science Related Endpoints
 
-Returns:
+| Endpoint                  | Method | Description                                       | Required Data                                                            |
+| ------------------------- | ------ | ------------------------------------------------- | ------------------------------------------------------------------------ |
+| /data/bridges             | GET    | Returns all bridge data hosted on the DS backend. |                                                                          |
+| /data/viz/{state}         | GET    | Returns plotly visualization.                     | `URL` Replace {state} with the state.</br>Requires user to be signed in. |
+| /data/predict/{x}/{y}/{z} | GET    | Returns a prediction result.                      |
 
-```
-{
-        "id": 1,
-        "country": "Rwanda",
-        "district_id": 37,
-        "province": "Western Province",
-        "district": "Nyamasheke",
-        "sector": "Kanjongo",
-        "sector_id": "3706",
-        "cell": "Kibogora",
-        "cell_id": "370601",
-        "village": "Kagarama",
-        "village_id": "37060104",
-        "bridge_site_name": "Kagarama",
-        "project_stage": "Complete",
-        "sub_stage": "In Service",
-        "project_code": "1007325",
-        "bridge_type": "Suspension",
-        "span": 48,
-        "lat": -2.322534,
-        "long": 29.141945,
-        "individuals_directly_served": "0",
-        "communities_served": [
-            "unavailable"
-        ],
-        "form_name": "Project Assessment - 2017.7.12",
-        "casesafeid_form": "a1if1000002NJhdAAG",
-        "bridge_opportunity_id": "006f100000a82Qz",
-        "bridge_image": "https://farm5.staticflickr.com/4829/44946210045_874f324731_k.jpg"
-    },
-    {
-        "id": 2,
-        "country": "Rwanda",
-        "district_id": 57,
-        "province": "Eastern Province",
-        "district": "Bugesera",
-        "sector": "Juru",
-        "sector_id": "5702",
-        "cell": "Kabukuba",
-        "cell_id": "570202",
-        "village": "Gikana",
-        "village_id": "57020201",
-        "bridge_site_name": "Gikana",
-        "project_stage": "Rejected",
-        "sub_stage": "Technical",
-        "project_code": "1007327",
-        "bridge_type": "?",
-        "span": 140,
-        "lat": -2.072628,
-        "long": 30.204382,
-        "individuals_directly_served": "0",
-        "communities_served": [
-            "unavailable"
-        ],
-        "form_name": "Project Assessment - 2018.11.30",
-        "casesafeid_form": "a1if1000002hTA9AAM",
-        "bridge_opportunity_id": "006f100000a86Cp",
-        "bridge_image": null
-    },
-    {
-        "id": 3,
-        "country": "Rwanda",
-        "district_id": 13,
-        "province": "Kigali",
-        "district": "Kicukiro",
-        "sector": "Juru-Masaka",
-        "sector_id": "1308",
-        "cell": "Rusheshe",
-        "cell_id": "130806",
-        "village": "Cyankongi",
-        "village_id": "13080601",
-        "bridge_site_name": "Cyankongi",
-        "project_stage": "Rejected",
-        "sub_stage": "Technical",
-        "project_code": "1007328",
-        "bridge_type": "?",
-        "span": 100,
-        "lat": -2.048451,
-        "long": 30.191277,
-        "individuals_directly_served": "0",
-        "communities_served": [
-            "unavailable"
-        ],
-        "form_name": "Project Assessment - 2018.11.30",
-        "casesafeid_form": "a1if1000002hT9pAAE",
-        "bridge_opportunity_id": "006f100000a86Cq",
-        "bridge_image": null
-    }...
+</br>
+</br>
 
-    ETC
-```
-
-<br/>
-
-GET REQUEST TO:
-
-https://bridges-b-api.herokuapp.com/bridges/:id (Ex. 13)
-
-Returns:
+### Bridge JSON Example
 
 ```
 {
-        "id": 13,
-        "country": "Rwanda",
-        "district_id": 42,
-        "province": "Northern Province",
-        "district": "Gakenke",
-        "sector": "Mataba-Minazi",
-        "sector_id": "4210",
-        "cell": "Gitwa-Gitwa-Nyundo-Mwanza",
-        "cell_id": "421003",
-        "village": "Mwanza",
-        "village_id": "42100307",
-        "bridge_site_name": "Gitwa",
-        "project_stage": "Identified",
-        "sub_stage": "Identified in Needs Assessment",
-        "project_code": "1007340",
-        "bridge_type": "Suspended",
-        "span": 50,
-        "lat": -1.738888,
-        "long": 29.755278,
-        "individuals_directly_served": "0",
-        "communities_served": [
-            "Gitwa",
-            "Muhororo",
-            "Mwanza"
-        ],
-        "form_name": "Project Assessment - 2018.8.17",
-        "casesafeid_form": "a1if1000002Vi9TAAS",
-        "bridge_opportunity_id": "006f100000a86D2",
-        "bridge_image": null
-    },
+    "id": 1,
+    "country": "Rwanda",
+    "district_id": 37,
+    "province": "Western Province",
+    "district": "Nyamasheke",
+    "sector": "Kanjongo",
+    "sector_id": "3706",
+    "cell": "Kibogora",
+    "cell_id": "370601",
+    "village": "Kagarama",
+    "village_id": "37060104",
+    "bridge_site_name": "Kagarama",
+    "project_stage": "Complete",
+    "sub_stage": "In Service",
+    "project_code": "1007325",
+    "bridge_type": "Suspension",
+    "span": 48,
+    "lat": -2.322534,
+    "long": 29.141945,
+    "individuals_directly_served": "0",
+    "communities_served": [
+        "unavailable"
+    ],
+    "form_name": "Project Assessment - 2017.7.12",
+    "casesafeid_form": "a1if1000002NJhdAAG",
+    "bridge_opportunity_id": "006f100000a82Qz",
+    "bridge_image": "https://farm5.staticflickr.com/4829/44946210045_874f324731_k.jpg"
+}
 ```
-
-<br/>
-
-PUT REQUEST TO:
-
-https://bridges-b-api.herokuapp.com/bridges/:id (Ex. 13)
-
-Returns:
-
-```
-{
-        "id": 13,
-        "country": "Rwanda",
-        "district_id": 42,
-        "province": "Northern Province",
-        "district": "Gakenke",
-        "sector": "Mataba-Minazi",
-        "sector_id": "4210",
-        "cell": "Gitwa-Gitwa-Nyundo-Mwanza",
-        "cell_id": "421003",
-        "village": "Mwanza",
-        "village_id": "42100307",
-        "bridge_site_name": "Gitwa",
-        "project_stage": "Identified",
-        "sub_stage": "Identified in Needs Assessment",
-        "project_code": "1007340",
-        "bridge_type": "Suspended",
-        "span": 50,
-        "lat": -1.738888,
-        "long": 29.755278,
-        "individuals_directly_served": "0",
-        "communities_served": [
-            "Gitwa",
-            "Muhororo",
-            "Mwanza"
-        ],
-        "form_name": "Project Assessment - 2018.8.17",
-        "casesafeid_form": "a1if1000002Vi9TAAS",
-        "bridge_opportunity_id": "006f100000a86D2",
-        "bridge_image": null
-    },
-```
-
-Allows you to edit bridges information.
-<br/>
