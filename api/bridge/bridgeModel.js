@@ -38,6 +38,23 @@ const updateBridgeByProjectCode = (code, changes) => {
 const findBridgeByProjectCode = (code) => {
   return db('bridges').where({ project_code: code });
 };
+const getBridgeGDP = (id) => {
+  return db('bridges')
+    .join('gdp', 'bridges.id', 'gdp.bridgeId')
+    .select([
+      '2015',
+      '2016',
+      '2017',
+      '2018',
+      '2019',
+      '2020',
+      '2021',
+      '2022',
+      '2023',
+      '2024',
+    ])
+    .where({ 'bridges.id': id });
+};
 
 module.exports = {
   findAll,
@@ -49,4 +66,5 @@ module.exports = {
   deleteBridge,
   updateBridgeByProjectCode,
   findBridgeByProjectCode,
+  getBridgeGDP,
 };
