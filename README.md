@@ -1,8 +1,10 @@
 # Bridge of Prosperity Backend
 
-You can find the deployed project at https://bridges-b-api.herokuapp.com/
+`Labs 27` Deployed project: https://labs27-b-bridges-api.herokuapp.com/
 
-You can find a demo vidoe of codebase at https://www.youtube.com/watch?v=PARd7apawNM&feature=youtu.be
+`Labs 25` You can find the deployed project at https://bridges-b-api.herokuapp.com/
+
+`Labs 25` You can find a demo video of codebase at https://www.youtube.com/watch?v=PARd7apawNM&feature=youtu.be
 
 ## Contributors
 
@@ -30,13 +32,17 @@ Tech Stack: Node.js, Express, Knex, PostgreSql, Docker
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
 ```
+PORT=
 DS_API_URL=
 DS_API_TOKEN=
 DATABASE_URL=
 OKTA_URL_ISSUER=
+OKTA_CLIENT_ID=
 ```
 
-# Installation Instructions
+## Installation Instructions
+
+### Commands
 
 - run: `npm install` to download all dependencies.
 - run: `cp .env.sample .env` and update the enviornment variables to match your local setup.
@@ -44,6 +50,15 @@ OKTA_URL_ISSUER=
 - run: `npm run knex seed:run` to populate your db with some data.
 - run: `npm run tests` to confirm all is setup and tests pass.
 - run: `npm run watch:dev` to start nodemon in local dev enviornment.
+
+### Bridge Images
+
+Note: Bridge image data may be included in the Data Science backend for future labs. If this is the case then ignore these steps.
+
+- Acquire the .xls file containing bridge images from TPL or stakeholder.
+- Open the .xls file with Google Sheets and export as a CSV file.
+- Use csvjson.com/csv2json to convert the .csv file to JSON.
+- Use the `/bridges/update-images PUT` endpoint to update the images.
 
 <br/>
 
